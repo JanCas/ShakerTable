@@ -20,6 +20,7 @@ MotorEncoder::MotorEncoder(int ena_pin, int in1_pin, int in2_pin, int encoder_pi
     this->speed = 0;
     deg_per_count =(float) (360.0 / (count*gear_ratio));
     direction_clockwise = true;
+    old_pos = 0;
 }
 
 MotorEncoder::~MotorEncoder() {
@@ -113,7 +114,8 @@ void MotorEncoder::pid(double des){
         pos = get_pos();
         // Controller code
         delta_t = t - t_old;
-        error = des - pos;
+        float s = get_speed();
+        error = des - get_speed();
         integralError = integralError + error * delta_t;
         dErrordt = (error - error_old) / delta_t;
         dErrordtFilt = dErrordt * alpha + dError_filt_old * (1 - alpha);
@@ -125,14 +127,14 @@ void MotorEncoder::pid(double des){
         old_pos = pos;
 
         V = constrain(V, -255., 255.);
-       /* 
+        
         Serial.print(" || ");
-        Serial.print(pos);
+        Serial.print(s);
         Serial.print(" || ");
         Serial.print(des);
         Serial.print(" || ");
         Serial.println(V);
-        */
+        
         set_speed(V);
     }
 }

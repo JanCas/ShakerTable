@@ -71,6 +71,13 @@ class MotorEncoder{
             t_old = micros() / 1000000.0;
             t_start = t_old;
         }
+        /**
+         * @brief Gets the encoder_counts in the deg
+         * 
+         * @return float 
+         */
+        float get_pos();
+        void pid(double des);
 
     private:
 
@@ -97,17 +104,11 @@ class MotorEncoder{
          */
         double normalize_speed(double speed);
 
-        /**
-         * @brief Gets the encoder_counts in the deg
-         * 
-         * @return float 
-         */
-        float get_pos();
+        
 
         float get_speed();
         
 
-        void pid(double des);
         
         double t_start;
         double t_old;
