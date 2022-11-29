@@ -11,13 +11,14 @@ class FloatMenuItem : public MenuItem{
         void display(OledDisplay *oled);
         void on_click(OledDisplay *oled);
 
-        FloatMenuItem(String ID, String title, float *num, RotaryEncoder *re, Button *b);
+        FloatMenuItem(String ID, String title, String unit,float *num, float *increment, RotaryEncoder *re, Button *b);
 
     private:
 
         String title;
+        String unit;
         float *num;
-        float increment = .01;
+        float increment;
         Button *b;
         RotaryEncoder *re;
 

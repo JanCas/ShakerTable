@@ -1,9 +1,10 @@
 #include "Menu/MenuItems/FloatMenuItem.hpp"
 
-FloatMenuItem::FloatMenuItem(String ID, String title, float *num, RotaryEncoder *re, Button *b){
+FloatMenuItem::FloatMenuItem(String ID, String title, String unit, float *num, float *increment, RotaryEncoder *re, Button *b){
     this->num = num;
     this->ID = ID;
     this->title = title;
+    this->unit = unit;
     clicked = false;
     this->re = re;
     this->b = b;

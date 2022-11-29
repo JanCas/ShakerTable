@@ -12,7 +12,7 @@ class RotaryEncoderClick{
         void tick();
 
         int get_pos();
-        int get_directon();
+        RotaryEncoder::Direction get_directon();
         bool pressed();
         bool has_rotated();
 

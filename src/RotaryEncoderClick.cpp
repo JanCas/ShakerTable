@@ -10,20 +10,19 @@ void RotaryEncoderClick::init(){
 }
 
 void RotaryEncoderClick::tick(){
-    //pos = re->getPosition();
     re->tick();
+    pos = re->getPosition();
 }
 
 bool RotaryEncoderClick::pressed(){
-    b->pressed();
+    return b->pressed();
 }
 
-int RotaryEncoderClick::get_directon(){
-    return (int)re->getDirection();
+RotaryEncoder::Direction RotaryEncoderClick::get_directon(){
+    return re->getDirection();
 }
 
 int RotaryEncoderClick::get_pos(){
-    pos = re->getPosition();
     return pos;
 }
 

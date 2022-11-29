@@ -6,10 +6,13 @@
 class ActionMenuItem : public MenuItem{
     public:
         ActionMenuItem(String ID, String prompt,void (*click_function)());
+        ActionMenuItem(String ID, String prompt);
         
         void display(OledDisplay *oled);
 
         void on_click(OledDisplay *oled);
+
+        void register_event(void (*click_function)());
     
     private:
         String prompt;

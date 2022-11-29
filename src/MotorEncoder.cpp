@@ -79,7 +79,8 @@ void MotorEncoder::cw(){
 }
 
 float MotorEncoder::get_pos(){
-    return deg_per_count * encoder->read();
+    old_pos = deg_per_count * encoder->read();
+    return old_pos;
 }
 
 bool MotorEncoder::drive_to(int des_pos){
@@ -102,20 +103,35 @@ double MotorEncoder::set_init_speed(double speed){
 }
 
 float MotorEncoder::get_speed(){
-    return (old_pos - get_pos()) / (t_old - t);
+
+    // double old_pos_temp = old_pos;
+    // Serial.print(old_pos);
+    // Serial.print(" || ");
+    // Serial.print(get_pos());
+    // Serial.print(" || ");
+    // Serial.print(t_old);
+    // Serial.print(" || ");
+    // Serial.print(millis());
+    // Serial.print(" || ");
+    // Serial.print(old_pos - get_pos());
+    // Serial.print(" || ");
+    // Serial.println((double)t_old - (double)millis());
+
+
+    return (old_pos - get_pos()) / ((double)t_old - (double)millis()) * 2.778;
 }
 
 void MotorEncoder::pid(double des){
-    t_ms = micros(); // current time
-    t = t_ms / 1000000.0;
+    t = millis(); // current time
 
     if (t > t_old + T_interval)
     {
-        pos = get_pos();
+        
         // Controller code
         delta_t = t - t_old;
         float s = get_speed();
-        error = des - get_speed();
+        pos = get_pos();
+        error = des - s;
         integralError = integralError + error * delta_t;
         dErrordt = (error - error_old) / delta_t;
         dErrordtFilt = dErrordt * alpha + dError_filt_old * (1 - alpha);
@@ -133,7 +149,10 @@ void MotorEncoder::pid(double des){
         Serial.print(" || ");
         Serial.print(des);
         Serial.print(" || ");
-        Serial.println(V);
+        Serial.print(V);
+        Serial.print(" || ");
+        Serial.println(error);
+
         
         set_speed(V);
     }

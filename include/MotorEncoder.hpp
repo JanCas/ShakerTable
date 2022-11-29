@@ -79,6 +79,10 @@ class MotorEncoder{
         float get_pos();
         void pid(double des);
 
+        float get_speed();
+        void set_t_old(){
+            t_old = millis();
+        };
     private:
 
         int ena_pin;
@@ -104,15 +108,16 @@ class MotorEncoder{
          */
         double normalize_speed(double speed);
 
+
         
 
-        float get_speed();
+        
         
 
         
         double t_start;
         double t_old;
-        double T_interval = .001;
+        double T_interval = 50.0; // in ms
         double Kp, Kd, Ki;
         double error_old, dError_filt_old;
         double delta_t;
