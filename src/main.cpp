@@ -47,6 +47,7 @@ void loop()
       Serial.println(i);
 
       long start_time = millis();
+      Enc1.reset_time();
       while (start_time + test_length > millis())
       {
         Enc1.pid(.5);
