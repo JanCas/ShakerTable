@@ -33,7 +33,7 @@ void setup()
 
 void loop()
 {
-  for (float freq = .5; freq <= 1.0; freq += .25)
+  for (float freq = .5; freq <= 1.0; freq += .25) // looping over all the frequencies
   {
     Serial.println("---------------------------------------------------------------------------------------------");
     Serial.print("Setting the frequency: ");
@@ -41,19 +41,24 @@ void loop()
     Serial.println("---------------------------------------------------------------------------------------------");
     Serial.println();
 
-    for (int i = 0; i < num_tests; i++)
+    for (int i = 0; i < num_tests; i++) // running the 3 tests
     {
       Serial.print("Test: ");
       Serial.println(i);
 
       long start_time = millis();
       Enc1.reset_time();
-      while (start_time + test_length > millis())
+      while (start_time + test_length > millis()) //  run the tests for test_length time
       {
-        Enc1.pid(.5);
+        Enc1.pid(freq);
       }
+
+      delay(5000); // 5 seconds between the tests
     }
     Serial.println();
     Serial.println();
+  
   }
+
+  while (true){} // make sure it stops there
 }
